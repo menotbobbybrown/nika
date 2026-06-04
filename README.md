@@ -96,19 +96,9 @@ LLMConfig:
 llm_review_enabled: false
 ```
 
-### Branch-Aware Scan
+### Documentation
 
-Use branch-aware scanning when reviewing a feature branch, pull request, or release candidate and you want findings aligned with the branch diff. Nika compares the source and target branches to identify the baseline commit instead of treating the entire repository as equally new.
-
-Example:
-
-```bash
-python3 main.py --path "/absolute/path/to/git/repo" --lang java --source_branch feature-branch --target_branch main --output report.html
-```
-
-### Aggressive Scan
-
-Use `aggressiveScan` when the codebase is harder to follow because data flows through many layers, interfaces, virtual method calls, callbacks, or map-based dispatch.
+To know more about Nika and it's features, you can read our detailed documentation [here](https://phonepe.github.io/nika/index.html).
 
 ## Language Support
 
