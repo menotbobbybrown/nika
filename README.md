@@ -79,8 +79,8 @@ cd nika
 
 ## Enable AI based False Positive Analysis
 
-Docker Setup - You can modify the config at `/absolute/path/to/crtConfig.yml`.
-Local Setup - You can modify the config at `/absolute/path/to/native-crtConfig.yml`.
+* Docker Setup - You can modify the config at `/absolute/path/to/crtConfig.yml`.
+* Local Setup - You can modify the config at `/absolute/path/to/native-crtConfig.yml`.
 
 ```yaml
 LLMConfig:
