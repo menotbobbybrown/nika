@@ -229,7 +229,7 @@ def findOwnershipReachable(
         }.foreach { a =>
           results.append(
             s"""{"endpoint":"${esc(ep)}","protected":true,"reachedMethod":"@${esc(a.name)}",""" +
-              s""""isExplicit":false,"annotation":"${esc(a.name)}","signature":"${esc(m.code)}","chain":[]}"""
+              s""""isExplicit":true,"annotation":"${esc(a.name)}","signature":"${esc(m.code)}","chain":[]}"""
           )
           handled += ep
         }
