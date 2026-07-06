@@ -201,7 +201,7 @@ def extract_method_from_file(
             context = _constructor_context(source_bytes, root_node)
             return context or f"Constructor not found in {file_path}"
         
-        def find_method_node(node, method_name):
+        def find_method_node(node, lookup_name):
             candidates = []
 
             def visit(current):
@@ -209,7 +209,7 @@ def extract_method_from_file(
                     name_node = current.child_by_field_name("name")
                     if (
                         name_node is not None
-                        and _node_text(source_bytes, name_node) == method_name
+                        and _node_text(source_bytes, name_node) == lookup_name
                     ):
                         if lookup_arity is None or _parameter_count(current) == lookup_arity:
                             return current
@@ -224,7 +224,7 @@ def extract_method_from_file(
             return visit(node) or (candidates[0] if candidates else None)
         
 
-        def find_variables_node(node, method_name):
+        def find_variables_node(node, lookup_name):
             if node.type == 'field_declaration':
                 for child in node.children:
                     if child.type != 'variable_declarator':
@@ -234,11 +234,11 @@ def extract_method_from_file(
                         name_node = child.children[0]
                     if (
                         name_node is not None
-                        and _node_text(source_bytes, name_node) == method_name
+                        and _node_text(source_bytes, name_node) == lookup_name
                     ):
                         return node
             for child in node.children:
-                result = find_variables_node(child, method_name)
+                result = find_variables_node(child, lookup_name)
                 if result:
                     return result
             return None
