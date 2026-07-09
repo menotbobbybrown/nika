@@ -150,6 +150,38 @@ class AstrailEngine:
                 results[endpoint] = entry
         return results
 
+    def find_ssrf_flows(
+        self,
+        context,
+        traces,
+        sink_names=None,
+        receiver_only_sinks=None,
+    ):
+        pairs = (
+            (
+                SimpleNamespace(methodName=trace.source_symbol),
+                {"lineNumber": trace.sink_line_number, "file": trace.sink_file_path},
+            )
+            for trace in (traces or [])
+            if getattr(trace, "source_symbol", None)
+            and getattr(trace, "sink_line_number", None)
+            and getattr(trace, "sink_file_path", None)
+        )
+        raw = self._get_query_runner().run_ssrf_flow_analysis(
+            pairs,
+            sink_names=sink_names,
+            receiver_only_sinks=receiver_only_sinks,
+        )
+        results = {}
+        for entry in raw or []:
+            key = (
+                entry.get("source"),
+                entry.get("fileName"),
+                int(entry.get("lineNumber") or 0),
+            )
+            results[key] = entry
+        return results
+
     def find_open_redirect_flows(
         self,
         context,
