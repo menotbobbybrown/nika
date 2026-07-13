@@ -47,7 +47,7 @@ class ConfigSchema(BaseModel):
     owasp_category_map: Optional[Dict[str, str]] = Field(
         default=None,
         alias="owaspCategoryMap"
-    ),
+    )
     exclude_source_args: SourceArgExclusionConfig = Field(
         default_factory=SourceArgExclusionConfig,
         alias="excludeSourceArgs",
